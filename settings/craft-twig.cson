@@ -1,0 +1,10 @@
+".text.html.twig":
+  editor:
+    foldEndPattern: '''
+      (?x)
+      	   ^(\\#\\})
+      		|(\\{\\%\\send.+?\\%\\})$
+      	
+    '''
+    commentStart: "{# "
+    commentEnd: " #}"
