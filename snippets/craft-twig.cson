@@ -32,7 +32,7 @@
         kind:      	'${2:image}',
         limit: 			${3:10}
       }) %}
-      
+
       {% for image in assets %}
           <img src="{{ image.url${4:('${5:thumb}')} }}" width="${6:200}" height="${7:200}" alt="{{ image.title }}">
       {% endfor %}
@@ -45,7 +45,7 @@
         group:    '${1:categoryGroupHandle',
         limit:      '${2:10}'
       }) %}
-      
+
       <ul>
           {% nav category in categories %}
               <li>
@@ -83,10 +83,10 @@
     body: '''
       {# Access any settings in craft/config/general.php #}
       {% if craft.config.devMode %}{% endif %}
-      
+
       {# Access settings in any config file #}
       {{ craft.config.get('someConfigSetting', 'someConfigFile') }}
-      
+
       {# General Settings #}
       {{ craft.config.appId }}
       {{ craft.config.cacheDuration }}
@@ -108,7 +108,7 @@
       {{ craft.config.useCompressedJs }}
       {{ craft.config.useWriteFileLock }}
       {{ craft.config.useXSendFile }}
-      
+
       {# Security Settings #}
       {{ craft.config.csrfTokenName }}
       {{ craft.config.defaultFilePermissions }}
@@ -117,12 +117,12 @@
       {{ craft.config.enableCsrfProtection }}
       {{ craft.config.tokenParam }}
       {{ craft.config.useSecureCookies }}
-      
+
       {# Updates Settings #}
       {{ craft.config.allowAutoUpdates }}
       {{ craft.config.backupDbOnUpdate }}
       {{ craft.config.restoreDbOnUpdateFailure }}
-      
+
       {# URL Settings #}
       {{ craft.config.actionTrigger }}
       {{ craft.config.addTrailingSlashesToUrls }}
@@ -136,14 +136,14 @@
       {{ craft.config.resourceTrigger }}
       {{ craft.config.slugWordSeparator }}
       {{ craft.config.usePathInfo }}
-      
+
       {# Templating Settings #}
       {{ craft.config.cacheElementQueries }}
       {{ craft.config.defaultTemplateExtensions }} {# array #}
       {{ craft.config.errorTemplatePrefix }}
       {{ craft.config.indexTemplateFilenames }}
       {{ craft.config.privateTemplateTrigger }}
-      
+
       {# Users Settings #}
       {{ craft.config.activateAccountFailurePath }}
       {{ craft.config.activateAccountSuccessPath }}
@@ -168,7 +168,7 @@
       {{ craft.config.useEmailAsUsername }}
       {{ craft.config.userSessionDuration }}
       {{ craft.config.verificationCodeDuration }}
-      
+
       {# Assets Settings #}
       {{ craft.config.allowedFileExtensions }}
       {{ craft.config.defaultImageQuality }}
@@ -180,10 +180,10 @@
       {{ craft.config.maxUploadFileSize }}
       {{ craft.config.rotateImagesOnUploadByExifData }}
       {{ craft.config.generateTransformsBeforePageLoad }}
-      
+
       $0
-      
-      
+
+
     '''
   "craft.entries w/ params":
     prefix: "entriesp"
@@ -192,7 +192,7 @@
         section:    '${1:sectionName}',
         limit:      '${2:10}'
       }) %}
-      
+
       {% for entry in entries %}
         <a href="{{ entry.url }}">{{ entry.title }}</a>
       {% endfor %}
@@ -215,13 +215,13 @@
       {% set feedUrl = "${1:http://feeds.feedburner.com/blogandtonic}" %}
       {% set limit = ${2:10} %}
       {% set items = craft.feeds.getFeedItems(feedUrl, limit) %}
-      
+
       {% for item in items %}
           <article>
               <h3><a href="{{ item.permalink }}">{{ item.title }}</a></h3>
               <p class="author">{{ item.authors[0].name }}</p>
               <p class="date">{{ item.date }}</p>
-      
+
               {{ item.summary }}
           </article>
       {% endfor %}
@@ -256,15 +256,15 @@
     prefix: "info"
     body: '''
       {% if craft.session.isLoggedIn %}{% endif %}
-      
+
       {{ craft.session.getRememberedUsername }}
       {{ craft.session.getReturnUrl }}
-      
+
       {{ craft.session.getFlash( key, defaultValue, delete ) }}
       {{ craft.session.getFlash( key, defaultValue, false ) }}
       {{ craft.session.getFlashes( delete ) }}
       {{ craft.session.getFlashes( false ) }}
-      
+
       {% if craft.session.hasFlash() %}{% endif %}
     '''
   "craft.tags w/ params":
@@ -273,7 +273,7 @@
       {% set tags = craft.tags.find({
         set:    '${1:setName}'
       }) %}
-      
+
       <ul>
       {% for tag in tags %}
           <li>{{ tag }}</a></li>
@@ -299,7 +299,7 @@
       {% set accounts = craft.users.find({
         group:    '${1:groupName}'
       }) %}
-      
+
       {% for account in accounts %}
         {{ account.firstName }} {{ account.lastName }}
       {% endfor %}
@@ -444,15 +444,15 @@
   "info: craft.assets":
     prefix: "info"
     body: '''
-      
+
       {% set assets = craft.assets.first() %}
       {% set assets = craft.assets.last() %}
       {% set assets = craft.assets.nth( n ) %}
       {% set assets = craft.assets.ids() %}
       {% set assets = craft.assets.total() %}
-      
+
       {% set assets = craft.assets.find({
-      
+
         filename:   'fileName.jpg',
         fixedOrder: true|false,
         folderId:   id,
@@ -465,33 +465,33 @@
         source:     'assetSourceHandle'
         sourceId:   id,
         width:      200,
-      
+
         relatedTo:      element, sourceElement, targetElement, field, sourceLocale,
         childOf:        See supported syntaxes below,
         childField:     'fieldHandle' OR id,
         parentOf:       See supported syntaxes below,
         parentField:    'fieldHandle' OR id,
-      
+
         order:      'title,id,sourceId,folderId,filename,kind,width,height,size,
-                    dateCreated asc,dateUpdated desc',  
+                    dateCreated asc,dateUpdated desc',
                     Also supports any textual field handles
         limit:      100,
         locale:     'en_us',
         indexBy:    'id,title',
-      
+
         search:     'salty dog'           containing both "salty" and "dog"
                     '"salty dog"'         containing the exact phrase "salty dog"
                     'salty OR dog'        containing either "salty" or "dog" (or both)
                     'salty -dog'          containing "salty" but not "dog"
                     'body:salty'          containing "salty" in the "body" field
-                    'body:salty'          body:dog containing both "salty" and "dog" 
+                    'body:salty'          body:dog containing both "salty" and "dog"
                                           in the "body" field
                     'body:*'              containing anything within the "body" field
                     'salty locale:en_us'  containing "salty" in the locale "en_us"
                     'salt*'               containing a word that begins with "salt"
                     '*ty'                 containing a word that ends with "ty"
                     '*alt*'               containing a word that contains "alt",
-      
+
         Supported syntaxes for childOf, kind, parentOf
                     elementId
                     AssetFileModel, EntryModel, UserModel, or TagModel
@@ -499,9 +499,9 @@
                     [ 1, 2, 3 ]
                     craft.assets, craft.entries, craft.users, craft.tags
       }) %}
-      
+
       {% for asset in assets %}
-      
+
         {{ asset.dateCreated }}
         {{ asset.dateUpdated }}
         {{ asset.extension }}
@@ -520,43 +520,43 @@
         {{ asset.sourceId }}
         {{ asset.url }}
         {{ asset.width }}
-        
+
         {{ asset.getHeight( transform ) }}
         {{ asset.getWidth( transform ) }}
         {{ asset.getUrl( transform ) }}
         {{ asset.setTransform( transform ) }}
-      
+
         {% set prev = asset.getPrev( params ) %}
         {% set next = asset.getNext( params ) %}
         {% if prev %} <a href="/link-to-prev-asset">{{ prev.title }}</a> {% endif %}
         {% if next %} <a href="/link-to-next-asset">{{ next.title }}</a> {% endif %}
-        
+
       {% endfor %}}
       $0
     '''
   "info: craft.categories":
     prefix: "info"
     body: '''
-      
+
       {% set categories = craft.categories.first() %}
       {% set categories = craft.categories.last() %}
       {% set categories = craft.categories.nth( n ) %}
       {% set categories = craft.categories.ids() %}
       {% set categories = craft.categories.total() %}
-      
+
       {% set categories = craft.categories.find({
         id:             id OR 'not id' ,
         fixedOrder:     true/false,
         title:          'title',
-        slug:           'slug', 
-        uri:            'uri', 
+        slug:           'slug',
+        uri:            'uri',
         group:          'categoryGroupHandle'
         groupId:        id,
         status:         'live,pending,expired,disabled,null',
         offset:         10,
         level:          2,
         locale:         'en_us',
-      
+
         relatedTo:      element, sourceElement, targetElement, field, sourceLocale,
         ancestorOf:     CategoryModel OR id,
         ancestorDist:   2,
@@ -564,29 +564,29 @@
         descendantDist: 2,
         nextSiblingOf:  CategoryModel OR id,
         prevSiblingOf:  CategoryModel OR id,
-        
+
         order:          'title,id,groupId,slug,uri,
                          dateCreated asc,dateUpdated desc',
         limit:          10,
         indexBy:        'id,title',
-      
+
         search:         'salty dog'           containing both "salty" and "dog"
                         '"salty dog"'         containing the exact phrase "salty dog"
                         'salty OR dog'        containing either "salty" or "dog" (or both)
                         'salty -dog'          containing "salty" but not "dog"
                         'body:salty'          containing "salty" in the "body" field
-                        'body:salty'          body:dog containing both "salty" and "dog" 
+                        'body:salty'          body:dog containing both "salty" and "dog"
                                               in the "body" field
                         'body:*'              containing anything within the "body" field
                         'salty locale:en_us'  containing "salty" in the locale "en_us"
                         'salt*'               containing a word that begins with "salt"
                         '*ty'                 containing a word that ends with "ty"
                         '*alt*'               containing a word that contains "alt"
-      
+
       }) %}
-      
+
       {% for category in categories %}
-      
+
         {{ category.id }}
         {{ category.level }}
         {{ category.groupId }}
@@ -598,16 +598,16 @@
         {{ category.url }}       {# full front-end URL #}
         {{ category.link }}      {# full <a> tag #}
         {{ category.cpEditUrl }}
-        
+
         {{ category.enabled }}
         {{ category.status }}
-      
+
         {{ category.dateCreated }}
         {{ category.dateUpdated }}
-        
+
         {{ category.getAncestors( distance ) }}
         {{ category.getDescendants( distance) }}
-        {{ category.children }} 
+        {{ category.children }}
         {{ category.parent }}
         {{ category.hasDescendants }}
         {{ category.nextSibling }}
@@ -619,30 +619,30 @@
         {{ category.isParentOf( entry ) }}
         {{ category.isPrevSiblingOf( entry ) }}
         {{ category.isSiblingOf( entry ) }}
-        
+
         {% set prev = category.getPrev( params ) %}
         {% set next = category.getNext( params ) %}
         {% if prev %} <a href="{{ prev.url }}">{{ prev.title }}</a> {% endif %}
         {% if next %} <a href="{{ next.url }}">{{ next.title }}</a> {% endif %}
-      
+
       {% endfor %}}
       $0
     '''
   "info: craft.entries":
     prefix: "info"
     body: '''
-      
+
       {% set entries = craft.entries.first() %}
       {% set entries = craft.entries.last() %}
       {% set entries = craft.entries.nth( n ) %}
       {% set entries = craft.entries.ids() %}
       {% set entries = craft.entries.total() %}
-      
+
       {% set entries = craft.entries.find({
         id:             id OR 'not id' ,
         fixedOrder:     true/false,
-        slug:           'slug', 
-        uri:            'uri', 
+        slug:           'slug',
+        uri:            'uri',
         sectionId:      id,
         section:        'sectionHandle', [arrayOfSectionHandles], SectionModel
         authorId:       id,
@@ -658,7 +658,7 @@
         level:          2,
         locale:         'en_us',
         localeEnabled:  true/false,
-      
+
         relatedTo:      element, sourceElement, targetElement, field, sourceLocale,
         ancestorOf:     EntryModel OR id,
         ancestorDist:   2,
@@ -666,36 +666,36 @@
         descendantDist: 2,
         nextSiblingOf:  EntryModel OR id,
         prevSiblingOf:  EntryModel OR id,
-        
+
         order:          'title,id,authorId,sectionId,slug,uri,postDate,expiryDate',
                         'dateCreated asc', 'dateUpdated desc'
         limit:          10,
         indexBy:        'id,title',
-      
+
         search:         'salty dog'           containing both "salty" and "dog"
                         '"salty dog"'         containing the exact phrase "salty dog"
                         'salty OR dog'        containing either "salty" or "dog" (or both)
                         'salty -dog'          containing "salty" but not "dog"
                         'body:salty'          containing "salty" in the "body" field
-                        'body:salty'          body:dog containing both "salty" and "dog" 
+                        'body:salty'          body:dog containing both "salty" and "dog"
                                               in the "body" field
                         'body:*'              containing anything within the "body" field
                         'salty locale:en_us'  containing "salty" in the locale "en_us"
                         'salt*'               containing a word that begins with "salt"
                         '*ty'                 containing a word that ends with "ty"
                         '*alt*'               containing a word that contains "alt"
-      
+
         Supported syntaxes for childOf, kind, parentOf
                         elementId
                         AssetFileModel, EntryModel, UserModel, or TagModel
                         [ arrayOfModels, arrayOfModels, arrayOfModels ]
                         [ 1, 2, 3 ]
                         craft.assets, craft.entries, craft.users, craft.tags
-      
+
       }) %}
-      
+
       {% for entry in entries %}
-      
+
         {{ entry.id }}
         {{ entry.level }}
         {{ entry.sectionId }}
@@ -710,15 +710,15 @@
         {{ entry.url }}       {# full front-end URL #}
         {{ entry.link }}      {# full <a> tag #}
         {{ entry.cpEditUrl }}
-        
+
         {{ entry.enabled }}
         {{ entry.status }}
-      
+
         {{ entry.postDate }}
         {{ entry.expiryDate }}
         {{ entry.dateCreated }}
         {{ entry.dateUpdated }}
-        
+
         {{ entry.getAncestors( distance ) }}
         {{ entry.getDescendants( distance) }}
         {{ entry.children }}
@@ -733,12 +733,12 @@
         {{ entry.isParentOf( entry ) }}
         {{ entry.isPrevSiblingOf( entry ) }}
         {{ entry.isSiblingOf( entry ) }}
-        
+
         {% set prev = entry.getPrev( params ) %}
         {% set next = entry.getNext( params ) %}
         {% if prev %} <a href="{{ prev.url }}">{{ prev.title }}</a> {% endif %}
         {% if next %} <a href="{{ next.url }}">{{ next.title }}</a> {% endif %}
-      
+
       {% endfor %}}
       $0
     '''
@@ -747,38 +747,38 @@
     body: '''
       {# Required #}
       {% set feedUrl  = "http://feeds.feedburner.com/blogandtonic" %}
-      
+
       {# Option #}
       {% set limit    = 10 %} {# How many items to return. Default: All #}
       {% set skip     = 0 %}  {# How many items to skip.   Default: Zero #}
-      
+
       {% set items = craft.feeds.getFeedItems( url, limit, offset, cacheDuration ) %}
-      
+
       {% for item in items %}
-        
+
         {{ title }}
         {{ summary }}
         {{ content }}
-      
+
         {{ date }}
         {{ dateUpdated }}
         {{ permalink }}
-        
+
         {{ authors }}               {# array #}
         {{ authors[0].name }}
         {{ authors[0].url }}
         {{ authors[0].email }}
-      
+
         {{ contributors }}          {# array #}
         {{ contributors[0].name }}
         {{ contributors[0].url }}
         {{ contributors[0].email }}
-      
+
         {{ categories }}            {# array #}
         {{ categories[0].term }}
         {{ categories[0].scheme }}
         {{ categories[0].label }}
-      
+
       {% endfor %}
       $0
     '''
@@ -789,111 +789,111 @@
       {{ craft.request.isAjax }}
       {{ craft.request.isLivePreview }}
       {{ craft.request.isSecure }}
-      
+
       {{ craft.request.path }}
       {{ craft.request.url }}
       {{ craft.request.urlReferrer }}
       {{ craft.request.pageNum }}
-      
+
       {{ craft.request.queryString }}
       {{ craft.request.queryStringWithoutPath }}
       {{ craft.request.segments }}        {# array #}
-      
+
       {{ craft.request.firstSegment }}
       {{ craft.request.lastSegment }}
-      
+
       {{ craft.request.serverName }}
-      
+
       {# Methods #}
       {{ craft.request.isMobileBrowser() }}
-      
+
       {{ craft.request.getSegment( n ) }}
       {{ craft.request.getCookie( name ) }}
       {{ craft.request.getParam( name ) }}  {# Returns a parameter from either the query string or POST data. #}
       {{ craft.request.getQuery( name ) }}  {# Returns a parameter from the query string. #}
       {{ craft.request.getPost( name ) }}   {# Returns a parameter from the POST data. #}
-      
+
       $0
     '''
   "info: craft.tags":
     prefix: "info"
     body: '''
-      
+
       {% set tags = craft.tags.first() %}
       {% set tags = craft.tags.last() %}
       {% set tags = craft.tags.nth( n ) %}
       {% set tags = craft.tags.ids() %}
       {% set tags = craft.tags.total() %}
-      
+
       {% set tags = craft.tags.find({
         id:             id OR 'not id' ,
         fixedOrder:     true|false,
         title:          'title',
-        group:          'tagGroupHandle', 
+        group:          'tagGroupHandle',
         groupId:        id,
         offset:         2,
-        
+
         relatedTo:  element, sourceElement, targetElement, field, sourceLocale,
-      
+
         order:          'title,id,groupId,dateCreated asc,dateUpdated desc',
         limit:          10,
         locale:         'en_us',
         indexBy:        'id,title',
-      
+
         search:         'salty dog'           containing both "salty" and "dog"
                         '"salty dog"'         containing the exact phrase "salty dog"
                         'salty OR dog'        containing either "salty" or "dog" (or both)
                         'salty -dog'          containing "salty" but not "dog"
                         'body:salty'          containing "salty" in the "body" field
-                        'body:salty'          body:dog containing both "salty" and "dog" 
+                        'body:salty'          body:dog containing both "salty" and "dog"
                                               in the "body" field
                         'body:*'              containing anything within the "body" field
                         'salty locale:en_us'  containing "salty" in the locale "en_us"
                         'salt*'               containing a word that begins with "salt"
                         '*ty'                 containing a word that ends with "ty"
                         '*alt*'               containing a word that contains "alt"
-      
+
         Supported syntaxes for childOf, kind, parentOf
                         elementId
                         AssetFileModel, EntryModel, UserModel, or TagModel
                         [ arrayOfModels, arrayOfModels, arrayOfModels ]
                         [ 1, 2, 3 ]
                         craft.assets, craft.entries, craft.users, craft.tags
-      
+
       }) %}
-      
+
       {% for tag in tags %}
-      
+
         {{ tag.id }}
         {{ tag.title }}
         {{ tag.group }}
         {{ tag.groupId }}
         {{ tag.locale }}
-      
+
         {% set prev = tag.getPrev( params ) %}
         {% set next = tag.getNext( params ) %}
         {% if prev %} <a href="/link-to-prev-tag">{{ prev.name }}</a> {% endif %}
         {% if next %} <a href="/link-to-next-tag">{{ next.name }}</a> {% endif %}
-      
+
       {% endfor %}}
       $0
     '''
   "info: craft.users":
     prefix: "info"
     body: '''
-      
+
       {% set users = craft.users.first() %}
       {% set users = craft.users.last() %}
       {% set users = craft.users.nth( n ) %}
       {% set users = craft.users.ids() %}
       {% set users = craft.users.total() %}
-      
+
       {% set users = craft.users.find({
         admin:        true OR false,
         can:          'createEntries:5'
         email:        'email',
         firstName:    'firstName',
-        group:        'groupHandle', 
+        group:        'groupHandle',
         groupId:      id,
         id:           id OR 'not id',
         fixedOrder:   true|false,
@@ -902,31 +902,31 @@
         offset:       1,
         status:       'active,locked,suspended,pending,archived,null',
         username:     'username,
-          
+
         relatedTo:  element, sourceElement, targetElement, field, sourceLocale,
-        
+
         order:      'username,firstName,lastName,email,preferredLocale,status,lastLoginDate,
-                     dateCreated asc,dateUpdated desc', 
+                     dateCreated asc,dateUpdated desc',
         limit:      number,
         indexBy:    'id,username'
-      
+
         search:     'salty dog'           containing both "salty" and "dog"
                     '"salty dog"'         containing the exact phrase "salty dog"
                     'salty OR dog'        containing either "salty" or "dog" (or both)
                     'salty -dog'          containing "salty" but not "dog"
                     'body:salty'          containing "salty" in the "body" field
-                    'body:salty'          body:dog containing both "salty" and "dog" 
+                    'body:salty'          body:dog containing both "salty" and "dog"
                                           in the "body" field
                     'body:*'              containing anything within the "body" field
                     'salty locale:en_us'  containing "salty" in the locale "en_us"
                     'salt*'               containing a word that begins with "salt"
                     '*ty'                 containing a word that ends with "ty"
                     '*alt*'               containing a word that contains "alt",
-      
+
       }) %}
-      
+
       {% for user in users %}
-        
+
         {{ user.id }}
         {{ user.username }}
         {{ user.name }}
@@ -935,30 +935,30 @@
         {{ user.fullName }}
         {{ user.friendlyName }}    {# falls back to username #}
         {{ user.email }}
-        
+
         {{ user.preferredLocale }}
         {{ user.admin }}           {# true,false #}
         {{ user.status }}          {# active, locked, suspended, pending, archived #}
         {{ user.isCurrent }}       {# is currently logged in #}
-        
+
         {{ user.lastLoginDate }}
         {{ user.dateCreated }}
         {{ user.dateUpdated }}
-      
+
         {{ user.getChildren( fields ) }}
         {{ user.getParents( fields ) }}
-      
+
         {{ user.getGroups() }}
         {{ user.isInGroup( groupHandle OR groupId OR UserGroupModel ) }}
         {{ user.getPhotoUrl( size ) }}
         {{ user.isCurrent() }}
         {{ user.can( 'permission' ) }}
-      
+
         {% set prev = user.getPrev( params ) %}
         {% set next = user.getNext( params ) %}
         {% if prev %} <a href="/link-to-prev-user">{{ prev.username }}</a> {% endif %}
         {% if next %} <a href="/link-to-next-user">{{ next.username }}</a> {% endif %}
-      
+
       {% endfor %}}
       $0
     '''
@@ -966,15 +966,15 @@
     prefix: "matrix"
     body: '''
       {% for block in ${1:entry.matrixFieldHandle} %}
-      
+
       	{% if block.type == '${2:blockHandle}' %}
       		{{ block.${3:fieldHandle} }}
       	{% endif %}
-      
+
       	{% if block.type == '${4:blockHandle}' %}
       		{{ block.${5:fieldHandle} }}
       	{% endif %}
-      
+
       {% endfor %}
       $0
     '''
@@ -988,22 +988,22 @@
     prefix: "paginate"
     body: '''
       {% paginate craft.entries.section('blog').limit(10) as entries %}
-      
+
           {% for entry in entries %}
               <article>
                   <h1>{{ entry.title }}</h1>
                   {{ entry.body }}
               </article>
           {% endfor %}
-      
+
           {% if paginate.prevUrl %}
               <a href="{{ paginate.prevUrl }}">Previous Page</a>
           {% endif %}
-      
+
           {% if paginate.nextUrl %}
               <a href="{{ paginate.nextUrl }}">Next Page</a>
           {% endif %}
-      
+
       {% endpaginate %}
       $0
     '''
@@ -1011,34 +1011,34 @@
     prefix: "paginate"
     body: '''
       {# PAGINATION
-          
+
       For this pagination to work properly, we need to be sure to set
-      the paginateBase variable in the template we are including the 
+      the paginateBase variable in the template we are including the
       pagination in.
-      
+
       {% set paginateBase = "/blog/p" %}
       #}
-      
+
       {% if paginate.totalPages > 1 %}
       <ul>
           {% if paginate.currentPage != "1"  %}
               <li><a href="{{ paginateBase ~ '1' }}">First Page</a></li>
           {% endif %}
-      
+
           {% if paginate.prevUrl %}
               <li><a href="{{ paginate.prevUrl }}">Previous Page</a></li>
           {% endif %}
-      
+
           {% for pageNumber in 1..paginate.totalPages %}
               <li {% if paginate.currentPage == pageNumber %}class="active-page"{% endif %}>
                   <a href="{{ paginateBase ~ pageNumber }}">{{ pageNumber }}</a>
               </li>
           {% endfor %}
-      
+
           {% if paginate.nextUrl %}
               <li><a href="{{ paginate.nextUrl }}">Next Page</a></li>
           {% endif %}
-      
+
           {% if paginate.currentPage != paginate.total %}
               <li><a href="{{ paginateBase ~ paginate.total }}">Last Page</a></li>
           {% endif %}
@@ -1102,45 +1102,45 @@
     prefix: "switch"
     body: '''
       {% switch ${1:variable} %}
-      
+
       	{% case "${2:value1}" %}
-      	
-      
+
+
       	{% case "${3:value2}" %}
-      	
-      
+
+
       	{% default %}
-      	
-      
+
+
       {% endswitch %}
       $0
     '''
   "{% ... %}":
     prefix: "%%"
-    body: "{% ${1:$TM_SELECTED_TEXT} %}$0"
+    body: "{% $1 %}$2"
   "{# ... #}":
     prefix: "##"
-    body: "{# ${1:$TM_SELECTED_TEXT} #}$0"
+    body: "{# $1 #}$2"
   "{{ ... }}":
     prefix: "}}"
-    body: "{{ ${1:$TM_SELECTED_TEXT} }}$0"
+    body: "{{ $1 }}$2"
   "info: globals":
     prefix: "info"
     body: '''
-      
+
       SITE
       {{ siteName }}
       {{ siteUrl }}
       {{ loginUrl }}
       {{ logoutUrl }}
-      
+
       DATE
       {{ now.year }}
       {{ now.month }}
       {{ now.day }}
       {{ now|date("M d, Y") }}
       {{ now|date_modify("+1 day") }}
-      
+
       USERS
       {{ currentUser }}  {# null if no user is logged in #}
       {{ currentUser.id }}
@@ -1155,24 +1155,24 @@
       {{ currentUser.lastLoginDate }}
       {{ currentUser.dateCreated }}
       {{ currentUser.dateUpdated }}
-      
+
       {{ currentUser.getChildren() }}
       {{ currentUser.getParents() }}
-      
+
       {% set params = { group: 'authors', order: 'firstName, lastName' } %}
       {{ currentUser.getNext( params ) }}
       {{ currentUser.getPrev( params ) }}
-      
+
       GLOBALS
       {{ globalSetName.fieldName }}
-      
+
       TAGS
       {{ craft.assets }}
       {{ craft.categories }}
       {{ craft.entries }}
       {{ craft.tags }}
       {{ craft.user }}
-      
+
       {{ craft.config }}
       {{ craft.feeds }}
       {{ craft.fields }}
@@ -1180,7 +1180,7 @@
       {{ craft.request }}
       {{ craft.sections }}
       {{ craft.session }}
-      
+
       $0
     '''
   csrf:
