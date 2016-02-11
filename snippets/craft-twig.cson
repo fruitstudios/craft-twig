@@ -323,6 +323,9 @@
       </pre>
     '''
   else:
+    prefix: "else"
+    body: "{% endif %}$0"
+  endif:
     prefix: "endif"
     body: "{% endif %}$0"
   endblock:
