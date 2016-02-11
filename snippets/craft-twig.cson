@@ -324,7 +324,7 @@
     '''
   else:
     prefix: "else"
-    body: "{% endif %}$0"
+    body: "{% else %}$0"
   endif:
     prefix: "endif"
     body: "{% endif %}$0"
