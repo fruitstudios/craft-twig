@@ -3,7 +3,7 @@
     prefix: "assets"
     body: '''
       {% for image in craft.assets.
-      	.sourceId('${1:1}')
+        .sourceId('${1:1}')
         .kind('${2:image}')
         .limit(${3:10})
       }) %}
@@ -64,9 +64,9 @@
     body: '''
       <ul>
           {% nav category in craft.categories
-      			 .group('categoryGroupHandle',')
-      			 .limit(10)
-      			 %}
+             .group('categoryGroupHandle',')
+             .limit(10)
+             %}
               <li>
                   <a href="{{ category.url }}">{{ category.title }}</a>
                   {% ifchildren %}
@@ -202,9 +202,9 @@
     prefix: "entries"
     body: '''
       {% for entry in craft.entries
-      	.section('${1:sectionName}')
-      	.limit(${2:10})
-      	%}
+        .section('${1:sectionName}')
+        .limit(${2:10})
+        %}
         <a href="{{ entry.url }}">{{ entry.title }}</a>
       {% endfor %}
       $0
@@ -286,8 +286,8 @@
     body: '''
       <ul>
       {% for tag in craft.tags
-      	.set('${1:setName}')
-      	%}
+        .set('${1:setName}')
+        %}
           <li>{{ tag }}</li>
       {% endfor %}
       </ul>
@@ -309,8 +309,8 @@
     prefix: "users"
     body: '''
       {% for account in craft.users
-      	.group('${1:groupName}')
-      	%}
+        .group('${1:groupName}')
+        %}
         {{ account.firstName }} {{ account.lastName }}
       {% endfor %}
       $0
@@ -337,6 +337,9 @@
   "text.html.twig":
     prefix: "endfor"
     body: "{% endfor %}$0"
+  endmacro:
+    prefix: "endmacro"
+    body: "{% endmacro %}$0"
   endset:
     prefix: "endset"
     body: "{% endset %}$0"
@@ -398,7 +401,7 @@
     prefix: "incp"
     body: '''
       {% include '${1:template}' with {
-      	${2:key}: ${3:'${4:value}'}
+        ${2:key}: ${3:'${4:value}'}
       }} %}
       $0
     '''
@@ -415,8 +418,8 @@
     prefix: "includecss"
     body: '''
       {% includehirescss %}
-      	${1:/* ${2:CSS here} */}
-      	$3
+        ${1:/* ${2:CSS here} */}
+        $3
       {% endincludehirescss %}
       $0
     '''
@@ -424,8 +427,8 @@
     prefix: "includejs"
     body: '''
       {% includejs %}
-      	${1:/* ${2:CSS here} */}
-      	$3
+        ${1:/* ${2:CSS here} */}
+        $3
       {% endincludejs %}
       $0
     '''
@@ -439,8 +442,8 @@
     prefix: "includecss"
     body: '''
       {% includecss %}
-      	${1:/* ${2:CSS here} */}
-      	$3
+        ${1:/* ${2:CSS here} */}
+        $3
       {% endincludecss %}
       $0
     '''
@@ -725,7 +728,7 @@
         {{ entry.getAncestors( distance ) }}
         {{ entry.getDescendants( distance) }}
         {{ entry.children }}
-      	{{ entry.parent }}
+        {{ entry.parent }}
         {{ entry.hasDescendants }}
         {{ entry.nextSibling }}
         {{ entry.prevSibling }}
@@ -965,18 +968,25 @@
       {% endfor %}}
       $0
     '''
+  macro:
+    prefix: "macro"
+    body: '''
+      {% macro ${1:name}(${2:param}) %}
+        $0
+      {% endmacro %}
+    '''
   matrix:
     prefix: "matrix"
     body: '''
       {% for block in ${1:entry.matrixFieldHandle} %}
 
-      	{% if block.type == '${2:blockHandle}' %}
-      		{{ block.${3:fieldHandle} }}
-      	{% endif %}
+        {% if block.type == '${2:blockHandle}' %}
+          {{ block.${3:fieldHandle} }}
+        {% endif %}
 
-      	{% if block.type == '${4:blockHandle}' %}
-      		{{ block.${5:fieldHandle} }}
-      	{% endif %}
+        {% if block.type == '${4:blockHandle}' %}
+          {{ block.${5:fieldHandle} }}
+        {% endif %}
 
       {% endfor %}
       $0
@@ -1106,13 +1116,13 @@
     body: '''
       {% switch ${1:variable} %}
 
-      	{% case "${2:value1}" %}
+        {% case "${2:value1}" %}
 
 
-      	{% case "${3:value2}" %}
+        {% case "${3:value2}" %}
 
 
-      	{% default %}
+        {% default %}
 
 
       {% endswitch %}
