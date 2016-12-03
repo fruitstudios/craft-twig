@@ -337,6 +337,9 @@
   "text.html.twig":
     prefix: "endfor"
     body: "{% endfor %}$0"
+  endmacro:
+    prefix: "endmacro"
+    body: "{% endmacro %}$0"
   endset:
     prefix: "endset"
     body: "{% endset %}$0"
@@ -964,6 +967,13 @@
 
       {% endfor %}}
       $0
+    '''
+  macro:
+    prefix: "macro"
+    body: '''
+      {% macro ${1:name}(${2:param}) %}
+        $0
+      {% endmacro %}
     '''
   matrix:
     prefix: "matrix"
