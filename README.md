@@ -44,12 +44,14 @@ A port from [BarrelStrength Craft-Twig.tmbundle](https://github.com/BarrelStreng
     ciel               ceil()
     csrf               {{ getCsrfInput() }}
     exit               {% exit 404 %}
+    endmacro            {% endmacro %}
     floor              floor()
     includecss         {% includecss %} ... {% endincludecss %}
     includecss         {% includeCssFile "/resources/css/global.css" %}
     includecss         {% includehirescss %} ... {% endincludehirescss %}
     includejs          {% includejs %} ... {% endincludejs %}
     includejs          {% includeJsFile "/resources/css/global.css" %}
+    macro               {% macro name(param) %} ... {% endmacro %}
     matrix             Outputs a basic Matrix Field loop
     max                max()
     min                min()
