@@ -409,13 +409,13 @@
     prefix: "inc"
     body: "{% include '${1:template}'${2: with ${3:vars} }%}$0"
   includeCssFile:
-    prefix: "includecss"
+    prefix: "includecssfile"
     body: '''
       {% includeCssFile "${1:/resources/css/global.css}" %}
       $0
     '''
   includeCssHiRes:
-    prefix: "includecss"
+    prefix: "includecsshires"
     body: '''
       {% includehirescss %}
         ${1:/* ${2:CSS here} */}
@@ -433,7 +433,7 @@
       $0
     '''
   includeJsFile:
-    prefix: "includejs"
+    prefix: "includejsfile"
     body: '''
       {% includeJsFile "${1:/resources/js/global.js}" %}
       $0
@@ -1066,25 +1066,25 @@
       $0
     '''
   "request getParam":
-    prefix: "request"
+    prefix: "getparam"
     body: '''
       craft.request.getParam(${1:'Query String or Post Variable Name'})
       $0
     '''
   "request getPost":
-    prefix: "request"
+    prefix: "getpost"
     body: '''
       craft.request.getPost(${1:'postVariableName'})
       $0
     '''
   "request getQuery":
-    prefix: "request"
+    prefix: "getquery"
     body: '''
       craft.request.getQuery(${1:'queryStringName'})
       $0
     '''
   "request getSegment":
-    prefix: "request"
+    prefix: "getsegment"
     body: '''
       craft.request.getSegment(${1:2})
       $0
