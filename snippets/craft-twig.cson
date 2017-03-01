@@ -397,6 +397,11 @@
           $0
       {% endif %}
     '''
+  import:
+    prefix: "import"
+    body: '''
+      {% import '${1:template}' as ${2:key} %}
+    '''
   "include w/ params":
     prefix: "incp"
     body: '''

@@ -8,7 +8,7 @@ patterns: [
   {
     begin: '''
       (?x)   # Enable free spacing mode
-      			         \\{\\#   # Opening curly brace and hash tag
+                     \\{\\#   # Opening curly brace and hash tag
 
     '''
     captures:
@@ -17,7 +17,7 @@ patterns: [
     comment: "{# Comment Block #}"
     end: '''
       (?x)   # Enable free spacing mode
-      				   \\#\\}   # Closing curly brace and hash tag
+                 \\#\\}   # Closing curly brace and hash tag
 
     '''
     name: "comment.block.twig"
@@ -25,7 +25,7 @@ patterns: [
   {
     begin: '''
       (?x)   # Enable free spacing mode
-      			         \\{\\%   # Opening curly brace and percent sign
+                     \\{\\%   # Opening curly brace and percent sign
 
     '''
     captures:
@@ -34,7 +34,7 @@ patterns: [
     comment: "{% Expression / Action Tags %}"
     end: '''
       (?x)   # Enable free spacing mode
-      				   \\%\\}   # Closing curly brace and percent sign
+                 \\%\\}   # Closing curly brace and percent sign
 
     '''
     name: "meta.tag.expression.twig"
@@ -95,7 +95,7 @@ patterns: [
   {
     begin: '''
       (?x)   # Enable free spacing mode
-      			         \\{\\{   # Opening double curly braces
+                     \\{\\{   # Opening double curly braces
 
     '''
     captures:
@@ -104,7 +104,7 @@ patterns: [
     comment: "{{ Output / Variable Tags }}"
     end: '''
       (?x)   # Enable free spacing mode
-      				   \\}\\}   # Closing double curly braces
+                 \\}\\}   # Closing double curly braces
 
     '''
     name: "meta.tag.output.twig"
@@ -165,7 +165,7 @@ patterns: [
   {
     begin: '''
       (?ix)   # Enable free spacing mode, case insensitive
-      			         (?<=\\{\\%\\sincludecss\\s\\%\\}|\\{\\%\\sincludehirescss\\s\\%\\})
+                     (?<=\\{\\%\\sincludecss\\s\\%\\}|\\{\\%\\sincludehirescss\\s\\%\\})
 
     '''
     comment: "Add CSS support to set tags that use the pattern \"css\" in their name"
@@ -180,8 +180,8 @@ patterns: [
   {
     begin: '''
       (?ix)   # Enable free spacing mode, case insensitive
-      			         # Make sure our opening includejs tag has word boundaries
-      			         (?<=\\{\\%\\sincludejs\\s\\%\\})
+                     # Make sure our opening includejs tag has word boundaries
+                     (?<=\\{\\%\\sincludejs\\s\\%\\})
 
     '''
     comment: "Add JS support to set tags that use the pattern \"css\" in their name"
@@ -244,6 +244,9 @@ repository:
     patterns: [
       {
         include: "#entities"
+      },
+      {
+        include: "#string_escapes"
       }
     ]
   "twig-arrays-hashes":
@@ -310,7 +313,7 @@ repository:
       {
         begin: '''
           (?ix) # Enable free spacing mode
-          					         (?<![-a-z])(?=[-a-z])\\w+\\s?(?=:)  # I do not understand this but copied it from the css grammar and added the check for word characters and a colon
+                             (?<![-a-z])(?=[-a-z])\\w+\\s?(?=:)  # I do not understand this but copied it from the css grammar and added the check for word characters and a colon
 
         '''
         comment: "Highlight they keys in our arrays/hashes"
@@ -320,7 +323,7 @@ repository:
       {
         begin: '''
           (?ix) # Enable free spacing mode
-          					         (?<![-0-9])(?=[-0-9])\\w+\\b  # I do not understand this but copied it from the css grammar and added the check for word characters and a colon, and swapped in numbers for letters
+                             (?<![-0-9])(?=[-0-9])\\w+\\b  # I do not understand this but copied it from the css grammar and added the check for word characters and a colon, and swapped in numbers for letters
 
         '''
         comment: "Highlight numbered keys as numbers"
@@ -332,14 +335,14 @@ repository:
     comment: "Twig Constants: true|false|null|none"
     match: '''
       (?ix) # Enable free spacing mode, ignore case
-      			         (?<= # Positive lookbehind. Our match comes after any of the following:
-      						[\\s\\[\\(\\{:,]
-      					 )
-      					 (?:
-      						 # Twig Constants
-      						 true|false|null|none
-      					 )
-      					 (?=[\\s\\)\\]\\}\\,]) # Positive lookahead: for the same as above (except colon)
+                     (?<= # Positive lookbehind. Our match comes after any of the following:
+                  [\\s\\[\\(\\{:,]
+                 )
+                 (?:
+                   # Twig Constants
+                   true|false|null|none
+                 )
+                 (?=[\\s\\)\\]\\}\\,]) # Positive lookahead: for the same as above (except colon)
 
     '''
     name: "constant.language.twig"
@@ -347,7 +350,7 @@ repository:
     comment: "Digits."
     match: '''
       (?x) # Enable free spacing mode
-      					 [[:digit:]]+
+                 [[:digit:]]+
 
     '''
     name: "constant.numeric.twig"
@@ -356,55 +359,55 @@ repository:
     match: '''
       (?x) # Enable free spacing mode
 
-      					(     # Match all filters with a pipe character in front of them
-      			     \\s?  # optional space
-      					 (\\|) # a pipe character
-      					 \\s?  # optional space
-      					 \\b   # word boundary
-      					 (
-      						(?!\\d)  # make sure our filter does not begin with a number
-      					  [\\w]+ # any number of word characters
-      					 )
-      					 \\b   # word boundary
-      				  )
-      					|
-      					(     # Match all filters that appear after the filter block tag keyword
-      					 (?<=filter\\s) # Postive Lookbehind: Keyword "filter" and a space
-      					 \\b   # word boundary
-      					 ([\\w]+) # any number of word characters
-      					 \\b   # word boundary
-      				    )
+                (     # Match all filters with a pipe character in front of them
+                 \\s?  # optional space
+                 (\\|) # a pipe character
+                 \\s?  # optional space
+                 \\b   # word boundary
+                 (
+                  (?!\\d)  # make sure our filter does not begin with a number
+                  [\\w]+ # any number of word characters
+                 )
+                 \\b   # word boundary
+                )
+                |
+                (     # Match all filters that appear after the filter block tag keyword
+                 (?<=filter\\s) # Postive Lookbehind: Keyword "filter" and a space
+                 \\b   # word boundary
+                 ([\\w]+) # any number of word characters
+                 \\b   # word boundary
+                  )
 
     '''
     name: "support.function.filters.twig"
   "twig-functions":
     begin: '''
       (?x) # Enable free spacing mode
-      			         (?<= # Positive lookbehind. Our match comes after any of the following:
-      						[\\s\\[\\(\\{:,]
-      					 )
-      					 (
-      						 # Make sure we explicitly try to match any supported functions
-      						 (
-      						 # Supported Twig Functions
-      						 attribute|block|constant|cycle|date|divisible\\sby|divisibleby|dump|include|max|min|parent|random|range|same\\sas|source|template_from_string|
+                     (?<= # Positive lookbehind. Our match comes after any of the following:
+                  [\\s\\[\\(\\{:,]
+                 )
+                 (
+                   # Make sure we explicitly try to match any supported functions
+                   (
+                   # Supported Twig Functions
+                   attribute|block|constant|cycle|date|divisible\\sby|divisibleby|dump|include|max|min|parent|random|range|same\\sas|source|template_from_string|
 
-      						 # Supported Twig Filters (Filters are functions too!)
-      						 abs|batch|capitalize|convert_encoding|date|date_modify|default|e(?:scape)?|first|format|join|(?:json|url)_encode|keys|last|length|lower|merge|nl2br|number_format|raw|replace|reverse|round|slice|sort|split|striptags|title|trim|upper|
+                   # Supported Twig Filters (Filters are functions too!)
+                   abs|batch|capitalize|convert_encoding|date|date_modify|default|e(?:scape)?|first|format|join|(?:json|url)_encode|keys|last|length|lower|merge|nl2br|number_format|raw|replace|reverse|round|slice|sort|split|striptags|title|trim|upper|
 
-      						 # Craft Twig Functions
-      						 ciel|floor|getCsrfInput|getFootHtml|getHeadHtml|max|min|round|shuffle|url|
+                   # Craft Twig Functions
+                   ciel|floor|getCsrfInput|getFootHtml|getHeadHtml|max|min|round|shuffle|url|
 
-      						 # Craft Twig Filters
-      						 currency|datetime|filesize|filter|group|indexOf|intersect|lcfirst|markdown|md|number|parseRefs|percentage|replace|translate|t|ucfirst|ucwords|without
-      						)
-      						|
-      						# Also try to match any word at the start of one of our tags that is followed by a parenthesis
-      						\\w+
-      					)
-      					(
-      						\\( # Open parenthesis
-      					)
+                   # Craft Twig Filters
+                   currency|datetime|filesize|filter|group|indexOf|intersect|lcfirst|markdown|md|number|parseRefs|percentage|replace|translate|t|ucfirst|ucwords|without
+                  )
+                  |
+                  # Also try to match any word at the start of one of our tags that is followed by a parenthesis
+                  \\w+
+                )
+                (
+                  \\( # Open parenthesis
+                )
 
     '''
     beginCaptures:
@@ -415,7 +418,7 @@ repository:
     comment: "Twig functions with arguments. And an attempt to be a bit more broad and match any word that might be a custom function."
     end: '''
       (?x) # Enable free spacing mode
-      			       (\\)) # Close parenthesis
+                   (\\)) # Close parenthesis
 
     '''
     endCaptures:
@@ -475,7 +478,7 @@ repository:
         comment: "Variables within function that do not match any of the above patterns."
         match: '''
           (?x) # Enable free spacing mode
-          					         \\w\\.* # Match any number of word characters and dots
+                             \\w\\.* # Match any number of word characters and dots
 
         '''
         name: "support.other.variable"
@@ -485,10 +488,10 @@ repository:
     comment: "Macro Function name"
     match: '''
       (?x) # Enable free spacing mode
-      			   		 (?<=[^(?:end)]macro) # Positive lookbehind for the opening macro tag
-      					 \\s+ # Any number of spaces
-      					 (\\b.*)  # Our function
-      					 (?=\\s?\\() # Positive lookahead for open parenthesis
+                    (?<=[^(?:end)]macro) # Positive lookbehind for the opening macro tag
+                 \\s+ # Any number of spaces
+                 (\\b.*)  # Our function
+                 (?=\\s?\\() # Positive lookahead for open parenthesis
 
     '''
     name: "entity.name.function.twig"
@@ -496,7 +499,7 @@ repository:
     comment: "Twig Operators"
     match: '''
       (?x) # Enable free spacing mode
-      					 (\\+|-|\\*|/|%|//|\\*\\*)
+                 (\\+|-|\\*|/|%|//|\\*\\*)
 
     '''
     name: "keyword.operator.arithmetic.twig"
@@ -504,7 +507,7 @@ repository:
     comment: "Twig Operators"
     match: '''
       (?x) # Enable free spacing mode
-      			         (=|~)
+                     (=|~)
 
     '''
     name: "keyword.operator.assignment.twig"
@@ -512,7 +515,7 @@ repository:
     comment: "Twig Operators"
     match: '''
       (?x) # Enable free spacing mode
-      			         (&|\\||\\^)
+                     (&|\\||\\^)
 
     '''
     name: "keyword.operator.bitwise.twig"
@@ -520,9 +523,9 @@ repository:
     comment: "Twig Operators"
     match: '''
       (?x) # Enable free spacing mode
-      			         (!=|==|<|<=|>|>=)
-      					 |
-      					 \\b(is|in|starts\\swith|ends\\swith)\\b
+                     (!=|==|<|<=|>|>=)
+                 |
+                 \\b(is|in|starts\\swith|ends\\swith)\\b
 
     '''
     name: "keyword.operator.comparison.twig"
@@ -530,15 +533,15 @@ repository:
     comment: "Twig Operators"
     match: '''
       (?x) # Enable free spacing mode
-      			         \\b
-      					 (
-      						 # Logical Operators
-      						 not|or|and|
+                     \\b
+                 (
+                   # Logical Operators
+                   not|or|and|
 
-      						 # Ternary Operators
-      						 \\?|:
-      					 )
-      					 \\b
+                   # Ternary Operators
+                   \\?|:
+                 )
+                 \\b
 
     '''
     name: "keyword.operator.logical.twig"
@@ -546,12 +549,12 @@ repository:
     comment: "Twig Tags - non primary tags that do not match if we have them in the twig-tags repository"
     match: '''
       (?x) # Enable free spacing mode
-      			         \\b   # Word boundary
-      					 (
-      						 # Default Supporting Tags
-      						 as|do|else|elseif|ignore\\smissing|only|with|with_context
-      					 )
-      					 \\b # Word boundary
+                     \\b   # Word boundary
+                 (
+                   # Default Supporting Tags
+                   as|do|else|elseif|ignore\\smissing|only|with|with_context
+                 )
+                 \\b # Word boundary
 
     '''
     name: "entity.name.tag.twig"
@@ -559,7 +562,7 @@ repository:
     comment: "Parentheses."
     match: '''
       (?x) # Enable free spacing mode
-      			     (\\(|\\))
+                 (\\(|\\))
 
     '''
     name: "punctuation.section.twig"
@@ -567,29 +570,29 @@ repository:
     comment: "Twig Tags opening and closing"
     match: '''
       (?x) # Enable free spacing mode
-      			         \\b   # Word boundary
-      							 (?:end)? # Match the "end" version of each tag too
-      							 (
-      								 (      # ?: provides grouping without capturing
+                     \\b   # Word boundary
+                     (?:end)? # Match the "end" version of each tag too
+                     (
+                       (      # ?: provides grouping without capturing
 
-      									 # Default Twig Tags
-      									 autoescape|do|embed|extends|filter|flush|for|from|if|import|include|macro|sandbox|set|spaceless|use|verbatim|
+                         # Default Twig Tags
+                         autoescape|do|embed|extends|filter|flush|for|from|if|import|include|macro|sandbox|set|spaceless|use|verbatim|
 
-      									 # Craft Twig Tags
-      									 cache|case|default|exit|header|includecss|includeCss|includeCssFile|includehirescss|includeHiResCss|includejs|includeJs|includeJsFile|nav|paginate(?!\\.)|redirect|requireLogin|requirePermission|switch
-      								 )
-      							 )
-      							 (?!\\() # Negative lookahead for parenthesis, to make sure this is not a Twig function
-      							 \\b # Word boundary
-      							 |
-      							 # handle the block tag separately, because we want to avoid
-      							 # things like for block in matrixField and block.type
+                         # Craft Twig Tags
+                         cache|case|default|exit|header|includecss|includeCss|includeCssFile|includehirescss|includeHiResCss|includejs|includeJs|includeJsFile|nav|paginate(?!\\.)|redirect|requireLogin|requirePermission|switch
+                       )
+                     )
+                     (?!\\() # Negative lookahead for parenthesis, to make sure this is not a Twig function
+                     \\b # Word boundary
+                     |
+                     # handle the block tag separately, because we want to avoid
+                     # things like for block in matrixField and block.type
 
-      							 # Only match the opening block tag if it is preceded by an action tag
-      							 (?<=\\{\\%\\s)block
-      							 |
-      							 # match the endblock tag explicitly
-      							 endblock
+                     # Only match the opening block tag if it is preceded by an action tag
+                     (?<=\\{\\%\\s)block
+                     |
+                     # match the endblock tag explicitly
+                     endblock
 
     '''
     name: "entity.name.tag.twig"
@@ -598,12 +601,40 @@ repository:
     match: '''
       (?x) # Enable free spacing mode
 
-      					 # Positive lookbehind: Tests start with "is"
-      					 (?<=is\\s)
+                 # Positive lookbehind: Tests start with "is"
+                 (?<=is\\s)
 
-      					 # Twig Tests
-      					 (constant|defined|divisible\\s?by|empty|even|iterable|none|null|odd|same\\s?as)
+                 # Twig Tests
+                 (constant|defined|divisible\\s?by|empty|even|iterable|none|null|odd|same\\s?as)
 
     '''
     name: "support.function.tests.twig"
+  'string_escapes':
+    'patterns': [
+      {
+        'match': '\\\\u(?![A-Fa-f0-9]{4}|{[A-Fa-f0-9]+})[^\'"]*'
+        'name': 'invalid.illegal.unicode-escape.twig'
+      }
+      {
+        'match': '\\\\u(?:[A-Fa-f0-9]{4}|({)([A-Fa-f0-9]+)(}))'
+        'name': 'constant.character.escape.twig'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.unicode-escape.begin.bracket.curly.js'
+          '2':
+            'patterns': [
+              {
+                # Max codepoint: \u{10FFFF}
+                'match': '[A-Fa-f\\d]{7,}|(?!10)[A-Fa-f\\d]{6}'
+                'name': 'invalid.illegal.unicode-escape.twig'
+              }
+            ]
+          '3':
+            'name': 'punctuation.definition.unicode-escape.end.bracket.curly.js'
+      }
+      {
+        'match': '\\\\(x\\h{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)'
+        'name': 'constant.character.escape.twig'
+      }
+    ]
 scopeName: "text.html.twig"
