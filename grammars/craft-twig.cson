@@ -576,7 +576,7 @@ repository:
                        (      # ?: provides grouping without capturing
 
                          # Default Twig Tags
-                         autoescape|do|embed|extends|filter|flush|for|from|if|import|include|macro|sandbox|set|spaceless|use|verbatim|paginate
+                         autoescape|cache|do|embed|extends|filter|flush|for|from|if|import|include|macro|sandbox|set|spaceless|use|verbatim|paginate
 
                          # Craft Twig Tags
                          cache|case|default|exit|header|includecss|includeCss|includeCssFile|includehirescss|includeHiResCss|includejs|includeJs|includeJsFile|nav|paginate(?!\\.)|redirect|requireLogin|requirePermission|switch
