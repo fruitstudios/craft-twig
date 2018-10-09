@@ -21,6 +21,13 @@
   block:
     prefix: "block"
     body: "{% block ${1:name} %}$0{% endblock %}"
+  cache:
+    prefix: "cache"
+    body: '''
+    {% cache ${1:globally} ${2:using key} ${3:"cache-key"} %}
+      $0
+    {% endcache %}
+    '''
   ciel:
     prefix: "ciel"
     body: "ceil($1)$0"
